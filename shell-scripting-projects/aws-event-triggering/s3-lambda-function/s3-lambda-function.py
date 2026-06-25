@@ -18,15 +18,6 @@ def lambda_handler(event, context):
        Message=f"File '{object_key}' was uploaded to bucket '{bucket_name}'"
     )
 
-    # Example: Trigger another Lambda function
-    # lambda_client = boto3.client('lambda')
-    # target_function_name = 'my-another-lambda-function'
-    # lambda_client.invoke(
-    #    FunctionName=target_function_name,
-    #    InvocationType='Event',
-    #    Payload=json.dumps({'bucket_name': bucket_name, 'object_key': object_key})
-    # )
-
     return {
         'statusCode': 200,
         'body': json.dumps('Lambda function executed successfully')
