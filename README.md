@@ -137,7 +137,7 @@ The MAOps Technologies ecosystem is being built through a series of production-i
 
 | Status | Repository |
 |---------|------------|
-| 🚧 | Linux DevOps Toolkit |
+| ✅ | [Linux DevOps Toolkit](https://github.com/raiyan10/maops-linux-devops-toolkit) — stable `v1.0.0` |
 | 🚧 | Python for DevOps |
 | 🚧 | Docker Platform |
 | 🚧 | Kubernetes Platform |
