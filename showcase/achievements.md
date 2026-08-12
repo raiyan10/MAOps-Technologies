@@ -125,6 +125,126 @@ See [showcase/screenshots.md](screenshots.md).
 
 ---
 
+## Project 2: MAOps Python DevOps Automation Toolkit
+
+**Status: stable `v0.7.0` release — the final planned release of the
+project's seven-day portfolio arc.**
+
+### Problem Statement
+
+DevOps and platform teams routinely need small, trustworthy diagnostic
+tools: what does the environment look like, is this endpoint up, what
+does a log actually say happened, did last night's checks all pass. Such
+tools are usually either shell scripts (fast to write, hard to keep safe
+and typed as they grow) or heavyweight frameworks (safe, but overkill for
+a diagnostics CLI).
+
+### Solution Summary
+
+A dependency-free Python CLI (`maops-py`) exploring a third point: a
+small, strictly typed CLI that treats its own security boundaries — no
+shell, no arbitrary command execution, a narrowly scoped network surface
+— as first-class design constraints from day one. It unifies environment
+diagnostics (`doctor`), typed TOML configuration, allowlisted subprocess
+tool inspection, system/filesystem inventory, structured log parsing and
+analysis with default secret redaction, bounded HTTP/TCP health checks,
+aggregated multi-report summarization, and declarative TOML automation
+workflows, behind one consistent command surface.
+
+### Architecture Summary
+
+An `argparse`-based CLI dispatches to one `commands/*.py` orchestration
+function per subcommand, each composing typed, frozen-dataclass models
+from `core/*.py` and rendering them through one shared text/JSON/Markdown
+output layer. Two narrow, explicit exceptions to "no subprocess, no
+network" — a fixed five-tool subprocess allowlist in `core/runner.py`,
+and a fixed HTTP/TCP surface in `core/health_http.py`/`core/health_tcp.py`
+— are each isolated to a single module and enforced by dedicated
+architectural regression tests, not only code review.
+
+### Primary Technologies
+
+Python 3.11+ (CI matrix through 3.14) · standard library only
+(`argparse`, `tomllib`, `http.client`, `ssl`, `socket`,
+`concurrent.futures`) · pytest · ruff · mypy `--strict` · GitHub Actions.
+
+### Security and Integrity Highlights
+
+- **No shell, no arbitrary command execution.** No `shell=True`,
+  `os.system`, `eval`, `exec`, or `pickle` anywhere in `src/`.
+  `core/runner.py` is the only module permitted to import `subprocess`,
+  and only with one of five fixed, hardcoded argv tuples.
+- **The workflow file is data, not code.** `workflow run` dispatches a
+  fixed, closed set of seven step kinds to the package's own existing
+  report-building functions — never a shell command, `eval`, or template
+  engine — proven by a dedicated test that feeds real shell-metacharacter
+  payloads through a canary-file-creation attempt and asserts the file is
+  never created.
+- **A two-module-wide network surface.** `core/health_http.py` and
+  `core/health_tcp.py` are the only modules permitted to import
+  `socket`/`ssl`/`http.client`; every other module's absence of network
+  access is enforced by a static import-boundary regression test. HTTPS
+  always validates certificates and hostnames, with no `--insecure` flag.
+- **Fd-safe, symlink-refusing file reads and atomic, symlink-race-proof
+  writes** across every module that reads file content or writes output.
+- **Zero third-party runtime dependencies** across all seven releases.
+
+### CI/CD Highlights
+
+A single `Python Validation` GitHub Actions workflow, SHA-pinned actions,
+running a Python 3.11/3.12/3.13/3.14 matrix. Every release runs `make
+quality` (format-check, lint, `mypy --strict`, coverage) → `make build` →
+`make smoke-install` (an isolated, offline install of the **exact built
+wheel**, `PIP_NO_INDEX=1 --no-deps`) → `make release-check`, before a tag
+and GitHub Release.
+
+### Final Automated Test Count
+
+**1323/1323 tests passing, 0 failures, 0 skipped. Coverage: 98.49%**
+(floor 90%) — per the Day 7 v0.7.0 final release-readiness review (`make
+quality`).
+
+### Release-Package Details
+
+- `maops_pydevops-0.7.0-py3-none-any.whl` + `maops_pydevops-0.7.0.tar.gz`.
+- `make smoke-install` installs the **exact built wheel** — never
+  editable source, never a fresh PyPI resolve — into an isolated,
+  offline temporary venv, so a release is validated against the actual
+  artifact a user would receive.
+- `src`-layout packaging; zero runtime dependencies declared in
+  `pyproject.toml`.
+
+### Key Engineering Lessons
+
+- **Coverage is a floor, not a proof.** The project's own Day 6 test
+  review documents a case where two real defects sat on 99%-covered
+  lines and were only caught by pointing hostile input at the specific
+  field that mattered, not by the coverage percentage.
+- **"Data, not code" has to be a structural fact, not a policy.** The
+  declarative workflow format has no templating, `eval`, or shell
+  interpolation path to begin with, rather than relying on input
+  sanitization to make an executable format safe.
+- **Structural detection beats heuristic guessing.** `report aggregate`
+  requires a fixed, unique JSON key combination per supported report
+  kind rather than a best-effort schema sniff — a document that doesn't
+  structurally match any supported kind is rejected outright.
+- **An independent review-and-remediation loop closes what it defers.**
+  Specialist review documents per day, with follow-up documents proving
+  Medium/Low findings deferred at release time were actually closed in
+  a later pass rather than silently dropped.
+
+### Screenshots
+
+See [showcase/screenshots.md](screenshots.md).
+
+### Links
+
+- Repository: https://github.com/raiyan10/maops-python-devops
+- v0.7.0 Release: https://github.com/raiyan10/maops-python-devops/releases/tag/v0.7.0
+- Portfolio Guide: https://github.com/raiyan10/maops-python-devops/blob/main/docs/portfolio-guide.md
+
+---
+
 No production users, revenue, uptime, or business-impact figures are
-claimed for this project — it is a portfolio and engineering-practice
-project, not a deployed service.
+claimed for either project — both are portfolio and engineering-practice
+projects, not deployed services.
