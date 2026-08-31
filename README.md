@@ -139,7 +139,7 @@ The MAOps Technologies ecosystem is being built through a series of production-i
 |---------|------------|
 | ✅ | [Linux DevOps Toolkit](https://github.com/raiyan10/maops-linux-devops-toolkit) — stable `v1.0.0` |
 | ✅ | [MAOps Python DevOps Automation Toolkit](https://github.com/raiyan10/maops-python-devops) — stable `v0.7.0` |
-| 🚧 | Docker Platform |
+| ✅ | [MAOps Docker Platform](https://github.com/raiyan10/maops-docker-platform) — stable `v1.0.0` |
 | 🚧 | Kubernetes Platform |
 | 🚧 | GitHub Actions CI/CD |
 | 🚧 | Terraform AWS |
@@ -235,7 +235,7 @@ The goal is not only to build systems, but also to share practical engineering k
 
 # 📈 Current Status
 
-🚧 Portfolio under active development. 2 of 18 planned repositories complete.
+🚧 Portfolio under active development. 3 of 18 planned repositories complete.
 
 New repositories, articles, diagrams, and demonstrations will be published as each project reaches production-inspired quality.
 
