@@ -77,3 +77,33 @@ make release-check
 
 See [docs/portfolio-guide.md](https://github.com/raiyan10/maops-python-devops/blob/main/docs/portfolio-guide.md)
 in the toolkit repository for the full project narrative.
+
+## Project 3: MAOps Docker Platform
+
+A representative walkthrough of the `v1.0.0` release-validation surface,
+from CI on `main` to a verified published release:
+
+1. **Continuous integration** — every push/PR to `main` runs `make
+   quality` then the full `make release-check`.
+   See [03-main-ci-green.png](../images/thumbnails/docker-platform/03-main-ci-green.png).
+2. **Tag-triggered release run** — pushing the `v1.0.0` tag runs the
+   release workflow's `Validate` (release-policy gates, tag/version/
+   history checks) and `Publish GitHub Release` jobs.
+   See [06-v100-tag-release-run.png](../images/thumbnails/docker-platform/06-v100-tag-release-run.png).
+3. **Published `v1.0.0` GitHub Release**, with its SPDX SBOM, pinned
+   Trivy scan report, and `SHA256SUMS` attached as release assets.
+   See [07-v100-github-release.png](../images/thumbnails/docker-platform/07-v100-github-release.png)
+   and [08-v100-release-assets.png](../images/thumbnails/docker-platform/08-v100-release-assets.png).
+4. **Real downloaded-release consumer verification** — `sha256sum -c
+   SHA256SUMS` run against the actual downloaded release assets, not
+   the CI build artifacts.
+   See [10-v100-consumer-verification.png](../images/thumbnails/docker-platform/10-v100-consumer-verification.png).
+
+```bash
+make quality
+make release-check
+docker compose up
+```
+
+See [docs/production-readiness.md](https://github.com/raiyan10/maops-docker-platform/blob/main/docs/production-readiness.md)
+in the platform repository for the full project narrative.

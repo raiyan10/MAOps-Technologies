@@ -245,6 +245,133 @@ See [showcase/screenshots.md](screenshots.md).
 
 ---
 
+## Project 3: MAOps Docker Platform
+
+**Status: stable `v1.0.0` release.**
+
+### Problem Statement
+
+Most "learn Docker" projects stop at a working `Dockerfile` and a
+`docker-compose up`. This project asks what it takes to bring
+production-inspired container engineering discipline — non-root
+execution, capability dropping, read-only filesystems, network
+segmentation, reproducible builds, and supply-chain-verified releases —
+to a small multi-service platform, with the application layer kept
+deliberately trivial so nearly all of the engineering effort is the
+container layer itself.
+
+### Solution Summary
+
+A secure, minimal Docker/Compose platform foundation: three runtime
+services (`gateway -> app -> state`) built from one shared, hardened
+Distroless Python image, communicating over a segmented edge/internal
+network topology with a persistent state volume and gateway-only
+loopback host publication. The Python application in `app/` is
+intentionally tiny — a few JSON endpoints — so it exists only as a
+deterministic workload for demonstrating real Docker/container
+engineering practices.
+
+### Architecture Summary
+
+Three services share one image built through a multi-stage Dockerfile
+onto a digest-pinned Distroless Python base. The `gateway` service is
+the platform's only host-published entry point; `app` and `state` are
+reachable solely over an internal backend network, with a separate edge
+network isolating the gateway. State is persisted through a dedicated
+`state_data` volume rather than any service's own writable layer.
+
+### Primary Technologies
+
+Docker · Docker Compose · Python (stdlib-only application, Distroless
+runtime) · GitHub Actions · Trivy · SPDX
+
+### Security and Integrity Highlights
+
+- **Non-root, capability-dropped, read-only runtime.** Every container
+  runs as UID:GID `10001:10001` on a read-only root filesystem, with
+  `cap_drop: ALL` and `no-new-privileges`, and no Docker socket mounted
+  into any workload or scanner container.
+- **Digest-pinned bases with a controlled security overlay.** All base
+  images are pinned by digest; a narrowly scoped Debian security overlay
+  patches an emergency `libssl3t64` finding, with its own automated
+  lifecycle tripwire that detects when a future base refresh makes the
+  overlay redundant.
+- **Network segmentation by default.** An edge network fronts only the
+  gateway; an internal backend network carries `gateway -> app -> state`
+  traffic; only the gateway is published to the host, and only on
+  loopback.
+- **Supply-chain-verified release.** An SPDX SBOM and a pinned Trivy scan
+  ship with every release; the `v1.0.0` release policy required 0
+  Critical and 0 fixable High findings (unfixed Highs left visible and
+  non-blocking) — a point-in-time result, since vulnerability databases
+  are time-varying, not a permanently fixed count.
+
+### CI/CD Highlights
+
+A GitHub Actions pipeline runs `make quality` and the full `make
+release-check` (build, inspect, image-audit, smoke, security-check,
+compose-test, reliability-check, reproducibility-check,
+supply-chain-check, patch-lifecycle-check, release-bundle) on every push
+and pull request. A separate release workflow offers a safe,
+non-publishing dry run alongside a controlled, tag-triggered GitHub
+Release publication, with least-privilege, per-job permissions and every
+action pinned to an immutable commit SHA.
+
+### Final Automated Test Count
+
+**688 automated unit tests passing** after the Day 7 remediation pass,
+alongside a **32/32-check reliability suite run against real Docker**
+covering health/readiness separation, resource limits, bounded
+`on-failure:3` restarts, graceful shutdown, persistence validation, and
+both transient-OOM automatic recovery and persistent-OOM
+restart-exhaustion/operator-recovery paths.
+
+### Release-Package Details
+
+- Strong reproducibility evidence: rebuilding the image produces an
+  exact image-ID match against the released artifact.
+- Release assets: SPDX SBOM (`maops-docker-platform-1.0.0.spdx.json`),
+  pinned Trivy scan report (`trivy-1.0.0.json`), and `SHA256SUMS`, staged
+  as a flat, basename-only bundle.
+- Real downloaded-release consumer verification: a fresh
+  `sha256sum -c SHA256SUMS` run against the actual published GitHub
+  Release assets passed.
+- An annotated `v1.0.0` Git tag backs the published GitHub Release.
+
+### Key Engineering Lessons
+
+- **A flat release bundle is what a real consumer actually verifies
+  against.** An earlier `v0.6.0` release shipped a `SHA256SUMS` file
+  referencing CI-internal paths that a normal flat download couldn't
+  check — fixed by staging and independently verifying a basename-only
+  bundle before every subsequent release.
+- **A security overlay needs its own exit condition, not just its own
+  justification.** The `libssl3t64` Debian-security patch ships with an
+  automated tripwire that independently pulls the real pinned base and
+  proves whether the overlay is still required, now redundant, or has
+  drifted — rather than trusting a comment to stay accurate.
+- **Vulnerability-scan results are a snapshot, not a guarantee.** The
+  release policy's "0 Critical, 0 fixable High" result reflects the
+  scanner database at release time; it is documented as time-varying
+  rather than claimed as a permanent property of the image.
+- **An independent review-and-remediation loop closes what it defers,
+  the same discipline as Projects 1 and 2.** Every still-relevant
+  Low/Medium finding from Days 1-6's engineering reviews was reviewed and
+  explicitly adjudicated — closed, accepted, or still open — in the Day 7
+  final pass rather than silently dropped.
+
+### Screenshots
+
+See [showcase/screenshots.md](screenshots.md).
+
+### Links
+
+- Repository: https://github.com/raiyan10/maops-docker-platform
+- v1.0.0 Release: https://github.com/raiyan10/maops-docker-platform/releases/tag/v1.0.0
+- Production Readiness: https://github.com/raiyan10/maops-docker-platform/blob/main/docs/production-readiness.md
+
+---
+
 No production users, revenue, uptime, or business-impact figures are
-claimed for either project — both are portfolio and engineering-practice
-projects, not deployed services.
+claimed for any of the three projects — all are portfolio and
+engineering-practice projects, not deployed services.

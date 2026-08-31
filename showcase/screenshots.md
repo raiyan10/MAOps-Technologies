@@ -35,3 +35,21 @@ complete per-day screenshot history lives in the toolkit repository under
 | `v0.7.0` GitHub Release — final planned release of the seven-day portfolio arc |
 |---|
 | ![v0.7.0 GitHub release](../images/thumbnails/python-devops-toolkit/05-v0.7.0-release.png) |
+
+## Project 3: MAOps Docker Platform
+
+A curated set of screenshots from the platform's `v1.0.0` release day. The
+complete per-day screenshot history lives in the platform repository under
+[`docs/images/`](https://github.com/raiyan10/maops-docker-platform/tree/main/docs/images).
+
+| CI — `Quality` and `Release policy` jobs passing on `main` | `v1.0.0` tag release run — `Validate` and `Publish GitHub Release` |
+|---|---|
+| ![Main CI green](../images/thumbnails/docker-platform/03-main-ci-green.png) | ![v1.0.0 tag release run](../images/thumbnails/docker-platform/06-v100-tag-release-run.png) |
+
+| `v1.0.0` GitHub Release | Release assets — SPDX SBOM, `SHA256SUMS`, pinned Trivy scan |
+|---|---|
+| ![v1.0.0 GitHub release](../images/thumbnails/docker-platform/07-v100-github-release.png) | ![v1.0.0 release assets](../images/thumbnails/docker-platform/08-v100-release-assets.png) |
+
+| Consumer verification — `sha256sum -c SHA256SUMS` against the downloaded release assets |
+|---|
+| ![v1.0.0 consumer verification](../images/thumbnails/docker-platform/10-v100-consumer-verification.png) |

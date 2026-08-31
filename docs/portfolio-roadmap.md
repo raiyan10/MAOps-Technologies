@@ -53,8 +53,44 @@ What shipped in v0.7.0:
 See [showcase/achievements.md](../showcase/achievements.md) for the full
 Project 2 write-up.
 
+## ✅ MAOps Docker Platform — stable `v1.0.0`
+
+Repository: https://github.com/raiyan10/maops-docker-platform
+Release: https://github.com/raiyan10/maops-docker-platform/releases/tag/v1.0.0
+
+What shipped in v1.0.0:
+
+- A three-service `gateway -> app -> state` platform built from one
+  shared image, running on an edge network (gateway-only, loopback host
+  publication) plus an internal backend network, with a persistent
+  `state_data` volume.
+- A hardened runtime end-to-end: multi-stage build onto a digest-pinned
+  Distroless Python base, non-root `10001:10001`, read-only root
+  filesystem, `cap_drop: ALL`, `no-new-privileges`, no Docker socket
+  mounted into any workload/scanner container, and a controlled Debian
+  security overlay with its own lifecycle tripwire.
+- A 32/32-check reliability suite against real Docker (health/readiness
+  separation, resource limits, bounded `on-failure:3` restarts, graceful
+  shutdown, persistence validation, and both transient-OOM automatic
+  recovery and persistent-OOM restart-exhaustion/operator-recovery
+  paths).
+- 688 automated unit tests passing after the Day 7 remediation pass.
+- A supply-chain-verified release: strong reproducibility evidence
+  (exact image-ID equality across rebuilds), an SPDX SBOM, pinned Trivy
+  scanning (0 Critical, 0 fixable High at release time — unfixed Highs
+  left visible and non-blocking; vulnerability databases are
+  time-varying, so this is a point-in-time result, not a permanent
+  guarantee), a GitHub Actions CI pipeline, a secure dry-run-vs-real tag
+  release flow, an annotated `v1.0.0` tag, a flat release bundle, and a
+  real downloaded-release consumer check (`sha256sum -c SHA256SUMS` ->
+  PASS).
+
+See [showcase/achievements.md](../showcase/achievements.md) for the full
+Project 3 write-up.
+
 ## 🚧 Remaining portfolio repositories
 
 All other repositories listed in the root `README.md` roadmap table
-remain in planning/early stages; this document will be updated as each
-one reaches a stable release.
+remain in planning/early stages — Project 4 (Kubernetes Platform) is
+next — and this document will be updated as each one reaches a stable
+release.
