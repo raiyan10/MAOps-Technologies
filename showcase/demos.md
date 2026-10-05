@@ -107,3 +107,24 @@ docker compose up
 
 See [docs/production-readiness.md](https://github.com/raiyan10/maops-docker-platform/blob/main/docs/production-readiness.md)
 in the platform repository for the full project narrative.
+
+## Project 4: MAOps Kubernetes Platform
+
+Start with the [v1.0.0 release](https://github.com/raiyan10/maops-kubernetes-platform/releases/tag/v1.0.0)
+and the project's [README](https://github.com/raiyan10/maops-kubernetes-platform#day-8-status-released-v100-local-kind-reference-platform).
+The recorded demonstrations cover state persistence, identity/network
+boundaries, deployment strategies and isolated autoscaling.
+
+The project's `make day8-plan` prints the live sequence without running it;
+`make day8-static-check` checks the design without cluster access.
+`make day8-check` mutates its scoped local environment and is an optional
+reproduction step requiring the documented preflight, resource budget
+and existing Day 7 cluster. It is not necessary just to browse evidence.
+
+Run I's published results are HPA 9/9, VPA 17/17, KEDA 13/13 (60/60
+items), cleanup 16/16. The saved-evidence screenshot is a later rendering
+of recorded output, not a new run. The
+[post-release verification record](https://github.com/raiyan10/maops-kubernetes-platform/blob/0bc6de2b2e9897ce6b0f158c66e15e6b33dd83d9/docs/engineering-reviews/day-08-post-release-verification.md)
+and [portfolio case study](https://github.com/raiyan10/maops-kubernetes-platform/blob/0bc6de2b2e9897ce6b0f158c66e15e6b33dd83d9/docs/portfolio-case-study.md) are
+published on the project's `main`; see
+[screenshots](screenshots.md#project-4-maops-kubernetes-platform).

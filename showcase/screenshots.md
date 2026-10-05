@@ -53,3 +53,17 @@ complete per-day screenshot history lives in the platform repository under
 | Consumer verification — `sha256sum -c SHA256SUMS` against the downloaded release assets |
 |---|
 | ![v1.0.0 consumer verification](../images/thumbnails/docker-platform/10-v100-consumer-verification.png) |
+
+## Project 4: MAOps Kubernetes Platform
+
+Two focused post-release images, published under
+[`docs/images/day-08/`](https://github.com/raiyan10/maops-kubernetes-platform/tree/0bc6de2b2e9897ce6b0f158c66e15e6b33dd83d9/docs/images/day-08)
+in the Kubernetes repository (documentation commit `0bc6de2`). They are
+linked from that commit rather than copied into this hub; the `v1.0.0`
+tag remains on release commit `4d74cfb`. Provenance is described in the
+[post-release record](https://github.com/raiyan10/maops-kubernetes-platform/blob/0bc6de2b2e9897ce6b0f158c66e15e6b33dd83d9/docs/engineering-reviews/day-08-post-release-verification.md#screenshots).
+
+| Published `v1.0.0` GitHub Release | Saved Day 8 gate results |
+|---|---|
+| ![v1.0.0 GitHub Release](https://raw.githubusercontent.com/raiyan10/maops-kubernetes-platform/0bc6de2b2e9897ce6b0f158c66e15e6b33dd83d9/docs/images/day-08/01-github-release-v1.0.0.png) | ![Saved Day 8 gate results](https://raw.githubusercontent.com/raiyan10/maops-kubernetes-platform/0bc6de2b2e9897ce6b0f158c66e15e6b33dd83d9/docs/images/day-08/02-saved-day8-gate-results.png) |
+| Signed-out headless Edge capture of the public release on 2026-10-05 at 06:35:26 UTC, after the owner corrected the notes' CI link; cropped from 1100 to 1060 pixels tall. | Terminal rendering of output re-read from saved evidence after release; no gate or demonstration was re-run. |

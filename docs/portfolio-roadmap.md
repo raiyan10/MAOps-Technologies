@@ -88,9 +88,71 @@ What shipped in v1.0.0:
 See [showcase/achievements.md](../showcase/achievements.md) for the full
 Project 3 write-up.
 
-## 🚧 Remaining portfolio repositories
+## ✅ MAOps Kubernetes Platform — released `v1.0.0`
 
-All other repositories listed in the root `README.md` roadmap table
-remain in planning/early stages — Project 4 (Kubernetes Platform) is
-next — and this document will be updated as each one reaches a stable
-release.
+Repository: https://github.com/raiyan10/maops-kubernetes-platform
+Release: https://github.com/raiyan10/maops-kubernetes-platform/releases/tag/v1.0.0
+
+Released on 2026-10-05 at `4d74cfbdeca4bdc56ddc4a207508393f7d4ed438`:
+
+- Gateway/app/state architecture with PVC-backed state and bounded
+  persistence/restoration checks.
+- Scoped identities, RBAC, Cilium NetworkPolicy, Helm, Gateway API and
+  Istio ambient mesh.
+- Recreate, Blue/Green and Canary demonstrations.
+- Isolated HPA, VPA Off/Initial and KEDA demonstrations, with quota/limit
+  governance and verified cleanup.
+- Run I passed HPA 9/9, VPA 17/17, KEDA 13/13 (60/60 items) and cleanup
+  16/16. The final cluster-free suite passed 1,838 unit tests.
+
+This is a single-host Kind reference platform. Application autoscaling,
+state HA and cluster-loss recovery are not established. The VPA
+cold-start floor case is test-covered; run I was not a cold start.
+
+The post-release record, two screenshots and a portfolio case study were
+published afterwards on the project's `main` in documentation commit
+`0bc6de2`, and CI passed on that commit. The `v1.0.0` tag still points to
+the release commit above; the documentation commit does not change the
+release contents. See the
+[post-release verification record](https://github.com/raiyan10/maops-kubernetes-platform/blob/0bc6de2b2e9897ce6b0f158c66e15e6b33dd83d9/docs/engineering-reviews/day-08-post-release-verification.md)
+and the [portfolio case study](https://github.com/raiyan10/maops-kubernetes-platform/blob/0bc6de2b2e9897ce6b0f158c66e15e6b33dd83d9/docs/portfolio-case-study.md).
+
+See [showcase/achievements.md](../showcase/achievements.md) for the full
+Project 4 write-up.
+
+## Consolidated project sequence
+
+| # | Project | Status |
+|---|---|---|
+| 1 | Linux Automation Toolkit | Released — v1.0.0 |
+| 2 | Python Automation | Released — v0.7.0 |
+| 3 | Docker Platform | Released — v1.0.0 |
+| 4 | Kubernetes Platform | Released — v1.0.0 (local Kind reference platform) |
+| 5 | GitHub Actions CI/CD Platform | Next — architecture first |
+| 6 | Terraform AWS Infrastructure Platform | Planned |
+| 7 | Ansible Configuration & Automation Platform | Planned |
+| 8 | DevSecOps Platform | Planned |
+| 9 | Argo CD GitOps Platform | Planned |
+| 10 | Observability & AIOps Platform | Planned — SRE perspective |
+| 11 | RAG & LLMOps Platform | Planned |
+| 12 | MLOps & AI Infrastructure Platform | Planned — equal depth for MLOps, infrastructure and inference |
+| 13 | AI Agents, Agentic Workflows, Orchestration & AgentOps Platform | Planned |
+| 14 | Enterprise Platform Engineering Capstone — Internal Developer Portal | Planned — integrates P1–13 |
+
+## Reuse obligations
+
+- P5 supplies reusable workflows, artifact identities and delivery-event
+  evidence to P14, plus one isolated Tekton comparison exercise. It
+  supports future model-serving artifacts without requiring P12 models now.
+- P10 provides SRE-oriented telemetry, objectives, alerts and incident
+  evidence, including a future inference-observability contract.
+- P12 balances model lifecycle/MLOps, reproducible AI infrastructure and
+  measured inference engineering; all three require practical evidence.
+- P13 delivers bounded, evaluated agent workflows and AgentOps.
+- P14 integrates selected prior outputs into an Internal Developer Portal.
+
+The canonical planning record also maps the public CNPA/CNPE topics;
+these are coverage obligations, not certification claims. Terraform is
+AWS-only in this portfolio. Terraform Azure, Kafka, FDE and AI FDE are
+outside this backlog. Sessions are bounded milestones, not fixed calendar
+deadlines. Architecture explanation precedes implementation.

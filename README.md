@@ -54,7 +54,7 @@ The vision of MAOps Technologies is to demonstrate how these disciplines work to
 
 - AWS
 - Azure
-- Multi-cloud Infrastructure
+- Cloud architecture concepts (the current Terraform project targets AWS)
 - Networking
 - Identity & Access Management
 
@@ -125,8 +125,9 @@ The vision of MAOps Technologies is to demonstrate how these disciplines work to
 - RAG
 - Vector Databases
 - AI Infrastructure
-- GPU Platforms
-- CUDA Concepts
+- AI Inference Engineering
+- Agentic Workflows and AgentOps
+- GPU/CUDA concepts (hardware-dependent experiments are optional)
 - AIOps
 
 ---
@@ -135,26 +136,27 @@ The vision of MAOps Technologies is to demonstrate how these disciplines work to
 
 The MAOps Technologies ecosystem is being built through a series of production-inspired repositories.
 
-| Status | Repository |
-|---------|------------|
-| ✅ | [Linux DevOps Toolkit](https://github.com/raiyan10/maops-linux-devops-toolkit) — stable `v1.0.0` |
-| ✅ | [MAOps Python DevOps Automation Toolkit](https://github.com/raiyan10/maops-python-devops) — stable `v0.7.0` |
-| ✅ | [MAOps Docker Platform](https://github.com/raiyan10/maops-docker-platform) — stable `v1.0.0` |
-| 🚧 | Kubernetes Platform |
-| 🚧 | GitHub Actions CI/CD |
-| 🚧 | Terraform AWS |
-| 🚧 | Terraform Azure |
-| 🚧 | Ansible Automation |
-| 🚧 | DevSecOps Platform |
-| 🚧 | Argo CD GitOps |
-| 🚧 | Observability Platform |
-| 🚧 | Kafka Platform |
-| 🚧 | MLOps Platform |
-| 🚧 | LLMOps Platform |
-| 🚧 | RAG Platform |
-| 🚧 | AI Infrastructure |
-| 🚧 | Enterprise Platform |
-| 🚧 | AIOps Platform |
+| # | Project | Status |
+|---|---|---|
+| 1 | Linux Automation Toolkit | Released — v1.0.0 |
+| 2 | Python Automation | Released — v0.7.0 |
+| 3 | Docker Platform | Released — v1.0.0 |
+| 4 | Kubernetes Platform | Released — v1.0.0 (local Kind reference platform) |
+| 5 | GitHub Actions CI/CD Platform | Next — architecture first |
+| 6 | Terraform AWS Infrastructure Platform | Planned |
+| 7 | Ansible Configuration & Automation Platform | Planned |
+| 8 | DevSecOps Platform | Planned |
+| 9 | Argo CD GitOps Platform | Planned |
+| 10 | Observability & AIOps Platform | Planned — SRE perspective |
+| 11 | RAG & LLMOps Platform | Planned |
+| 12 | MLOps & AI Infrastructure Platform | Planned — equal depth for MLOps, infrastructure and inference |
+| 13 | AI Agents, Agentic Workflows, Orchestration & AgentOps Platform | Planned |
+| 14 | Enterprise Platform Engineering Capstone — Internal Developer Portal | Planned — integrates P1–13 |
+
+Repository links and release evidence are in the [repository index](docs/repository-index.md)
+and [detailed roadmap](docs/portfolio-roadmap.md). This 14-project sequence
+supersedes the older 18-repository list. Terraform Azure, Kafka, FDE and
+AI FDE are outside the current portfolio backlog.
 
 ---
 
@@ -176,26 +178,12 @@ Every repository within MAOps Technologies follows a common engineering standard
 
 # 📂 Repository Architecture
 
-```text
-MAOps Technologies
-        │
-        ├── Linux Engineering
-        ├── Python Automation
-        ├── Docker Platform
-        ├── Kubernetes Platform
-        ├── Terraform
-        ├── GitHub Actions
-        ├── DevSecOps
-        ├── GitOps
-        ├── Observability
-        ├── Kafka
-        ├── MLOps
-        ├── LLMOps
-        ├── RAG
-        ├── AI Infrastructure
-        ├── Enterprise Platform
-        └── AIOps
-```
+| Layer | Projects | Role |
+|---|---|---|
+| Foundations | P1–4 | Released Linux, Python, Docker and Kubernetes capabilities |
+| Delivery and infrastructure | P5–9 | Planned reusable CI/CD, AWS provisioning, configuration, security and GitOps |
+| Operations and AI | P10–13 | Planned SRE telemetry/AIOps, RAG/LLMOps, balanced MLOps/infrastructure/inference, and AgentOps |
+| Developer experience | P14 | Planned Internal Developer Portal integrating selected outputs from P1–13 |
 
 ---
 
@@ -220,14 +208,10 @@ The objective is to combine human engineering expertise with AI-assisted workflo
 
 # 📚 Knowledge Sharing
 
-Every major project will be accompanied by:
-
-- Technical documentation
-- Architecture diagrams
-- Engineering decision records
-- GitHub repositories
-- Medium articles
-- LinkedIn technical posts
+Project handovers include technical documentation, architecture,
+engineering decisions and release evidence. Medium articles follow useful
+completed case studies. LinkedIn posts are optional and individually
+approved; publishing a technical project does not announce freelancing.
 
 The goal is not only to build systems, but also to share practical engineering knowledge with the community.
 
@@ -235,7 +219,13 @@ The goal is not only to build systems, but also to share practical engineering k
 
 # 📈 Current Status
 
-🚧 Portfolio under active development. 3 of 18 planned repositories complete.
+**Four of fourteen projects have releases.** Kubernetes v1.0.0 was
+released on 2026-10-05 as a local Kind reference platform; its
+post-release record, two screenshots and portfolio case study are
+published on the project's `main` branch, and the release tag stays on
+the validated release commit. P5 GitHub Actions CI/CD architecture is
+next. The [project status](showcase/project-status.md) tracks publication
+state.
 
 New repositories, articles, diagrams, and demonstrations will be published as each project reaches production-inspired quality.
 

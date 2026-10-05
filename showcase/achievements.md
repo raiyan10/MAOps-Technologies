@@ -370,8 +370,58 @@ See [showcase/screenshots.md](screenshots.md).
 - v1.0.0 Release: https://github.com/raiyan10/maops-docker-platform/releases/tag/v1.0.0
 - Production Readiness: https://github.com/raiyan10/maops-docker-platform/blob/main/docs/production-readiness.md
 
+## Project 4: MAOps Kubernetes Platform
+
+**Status: released `v1.0.0` on 2026-10-05 — a local Kind reference
+platform, not a production deployment.**
+
+### Solution Summary
+
+The project demonstrates a gateway/app/state application with persistent
+storage, workload identity and network isolation; Helm packaging;
+Gateway API and Istio ambient mesh; and Recreate, Blue/Green and Canary
+deployment strategies with verified restoration. Day 8 adds bounded HPA,
+VPA Off/Initial and KEDA demonstrations on separate disposable targets,
+leaving the application itself outside autoscaling.
+
+### Release Evidence
+
+- The first merged-main Day 8 run failed because the VPA recommendation
+  equalled both declared requests. PR #12 raised the memory policy
+  minimum to 48Mi and added regression/invariant coverage.
+- Corrected run I passed HPA 9/9, VPA 17/17, KEDA 13/13 with 60/60 items
+  processed, and cleanup 16/16. The final cluster-free suite passed 1,838
+  unit tests.
+- The owner reported the merged-main final gate exiting 0; only its
+  stable 7/7 and KEDA-absent results have saved files, and no complete
+  console log was retained for that gate.
+- The release tag stays on `4d74cfbdeca4bdc56ddc4a207508393f7d4ed438`.
+  The post-release record, two focused screenshots and a portfolio case
+  study followed in documentation commit `0bc6de2` on `main`, where CI
+  passed; that commit does not move the tag.
+
+### Limits
+
+Single host; no state HA or cluster-loss recovery; no application
+autoscaling; no live cold-start proof for the corrected VPA floor (run I
+was not a cold start; the case is covered by regression tests).
+Kind-specific kubelet TLS, disposable Redis delivery limits and manual
+cleanup after host interruption remain documented.
+
+### Screenshots
+
+See [showcase/screenshots.md](screenshots.md#project-4-maops-kubernetes-platform).
+
+### Links
+
+- Repository: https://github.com/raiyan10/maops-kubernetes-platform
+- v1.0.0 Release: https://github.com/raiyan10/maops-kubernetes-platform/releases/tag/v1.0.0
+- [Portfolio case study](https://github.com/raiyan10/maops-kubernetes-platform/blob/0bc6de2b2e9897ce6b0f158c66e15e6b33dd83d9/docs/portfolio-case-study.md)
+- [Day 8 post-release verification record](https://github.com/raiyan10/maops-kubernetes-platform/blob/0bc6de2b2e9897ce6b0f158c66e15e6b33dd83d9/docs/engineering-reviews/day-08-post-release-verification.md)
+- [Architecture](https://github.com/raiyan10/maops-kubernetes-platform/blob/0bc6de2b2e9897ce6b0f158c66e15e6b33dd83d9/docs/architecture.md)
+
 ---
 
 No production users, revenue, uptime, or business-impact figures are
-claimed for any of the three projects — all are portfolio and
+claimed for these portfolio projects — all are portfolio and
 engineering-practice projects, not deployed services.
